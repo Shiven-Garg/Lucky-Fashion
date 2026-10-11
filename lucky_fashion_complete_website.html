@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Fashion | A Complete Family Wear Shop (Since 1974)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            yellow: '#FFD700',
+                            yellowDark: '#E6C200',
+                            magenta: '#E81A7B',
+                            magentaDark: '#C41264',
+                            dark: '#111827',
+                            lightGray: '#F8FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #1f2937; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .bg-pattern {
+            background-color: #ffffff;
+            background-image: radial-gradient(#ffe500 0.85px, transparent 0.85px), radial-gradient(#ffe500 0.85px, #ffffff 0.85px);
+            background-size: 34px 34px;
+            background-position: 0 0, 17px 17px;
+        }
+        .badge-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col justify-between selection:bg-pink-200 selection:text-pink-900">
+
+    <!-- Global Toast Notification Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- MAIN HEADER -->
+    <header class="sticky top-0 z-40 bg-white border-b border-amber-200 shadow-sm">
+        <!-- Top Announcement Bar -->
+        <div class="bg-gradient-to-r from-yellow-400 via-amber-300 to-pink-500 text-slate-900 text-xs font-bold py-1.5 px-4 text-center flex justify-between items-center px-4 md:px-8">
+            <span class="truncate"><i class="fa-solid fa-store mr-1.5"></i> Nehru Market, Shamli • Est. 1974</span>
+            <div class="flex items-center space-x-4">
+                <a href="tel:9897043680" class="hover:underline flex items-center gap-1 font-extrabold text-slate-950">
+                    <i class="fa-solid fa-phone text-pink-700"></i> 9897043680
+                </a>
+                <span class="hidden md:inline">|</span>
+                <a href="https://instagram.com/luckyfashion011" target="_blank" class="hidden md:flex items-center gap-1 hover:text-pink-800">
+                    <i class="fa-brands fa-instagram text-pink-700"></i> @luckyfashion011
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Branding & Nav Bar -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- SVG Brand Logo -->
+                <div class="flex items-center cursor-pointer" onclick="navigate('home')">
+                    <div class="flex items-center gap-3">
+                        <svg class="h-12 w-12 rounded-xl shadow-md border-2 border-amber-400" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="100" fill="#FFD700" rx="16"/>
+                            <rect x="4" y="4" width="92" height="92" fill="none" stroke="#E81A7B" stroke-width="4" rx="12"/>
+                            <text x="50" y="48" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="34" fill="#E81A7B" text-anchor="middle">LF</text>
+                            <path d="M 25 58 L 75 58" stroke="#E81A7B" stroke-width="3" stroke-linecap="round"/>
+                            <text x="50" y="73" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" fill="#111827" text-anchor="middle">LUCKY FASHION</text>
+                            <text x="50" y="86" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="8" fill="#E81A7B" text-anchor="middle">EST. 1974</text>
+                        </svg>
+                        <div>
+                            <div class="flex items-baseline gap-1.5">
+                                <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900">LUCKY FASHION</span>
+                            </div>
+                            <p class="text-[10px] sm:text-xs font-bold text-pink-600 tracking-wider uppercase">A Complete Family Wear Shop</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8 relative">
+                    <input type="text" id="main-search-input" onkeyup="handleSearch(event)" placeholder="Search for T-Shirts, Shirts, Dresses, Kids, Suits..." class="w-full bg-slate-100 border border-slate-200 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:bg-white transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-400 text-sm"></i>
+                </div>
+
+                <!-- Action Nav Icons -->
+                <div class="flex items-center gap-3 sm:gap-5">
+                    <button onclick="navigate('catalog')" class="hidden sm:flex items-center text-slate-700 hover:text-pink-600 font-semibold text-sm transition-colors">
+                        Catalog
+                    </button>
+
+                    <!-- Wishlist Button -->
+                    <button onclick="navigate('wishlist')" class="relative p-2 text-slate-700 hover:text-pink-600 transition-colors">
+                        <i class="fa-regular fa-heart text-xl"></i>
+                        <span id="wishlist-badge" class="hidden absolute top-0 right-0 bg-pink-600 text-white text-[10px] font-extrabold rounded-full h-4 w-4 flex items-center justify-center">0</span>
+                    </button>
+
+                    <!-- Cart Drawer Trigger -->
+                    <button onclick="openCartDrawer()" class="relative p-2 text-slate-700 hover:text-pink-600 transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cart-badge" class="hidden absolute top-0 -right-1 bg-amber-400 text-slate-950 text-[10px] font-black rounded-full h-4 w-4 flex items-center justify-center border border-white">0</span>
+                    </button>
+
+                    <!-- Dynamic Account / Admin Button -->
+                    <div id="user-header-status">
+                        <button onclick="openAuthModal()" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all">
+                            <i class="fa-solid fa-user text-pink-600"></i>
+                            <span id="auth-button-text">Login</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Search Bar -->
+        <div class="md:hidden px-4 pb-3">
+            <div class="relative">
+                <input type="text" id="mobile-search-input" onkeyup="handleSearch(event)" placeholder="Search clothing, suits, kids wear..." class="w-full bg-slate-100 border border-slate-200 rounded-lg py-2 pl-9 pr-3 text-xs focus:outline-none focus:ring-2 focus:ring-pink-500">
+                <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+            </div>
+        </div>
+    </header>
+
+    <main id="app-viewport" class="flex-grow">
+        <!-- HOME PAGE VIEW -->
+        <section id="view-home" class="page-view space-y-10 pb-12">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-r from-amber-400 via-yellow-300 to-amber-200 overflow-hidden shadow-inner border-b border-amber-300">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="text-center md:text-left max-w-xl">
+                        <span class="inline-block bg-pink-600 text-white text-xs font-black uppercase px-3 py-1 rounded-full tracking-widest mb-3 shadow-sm">
+                            <i class="fa-solid fa-certificate text-yellow-300 mr-1"></i> Shamli's Premier Store Since 1974
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                            Elevate Your Family's Style with <span class="text-pink-600 underline decoration-amber-400">Lucky Fashion</span>
+                        </h1>
+                        <p class="mt-4 text-slate-800 text-sm sm:text-base font-medium">
+                            Authentic apparel for Men, Women, Kids & Family Wear. Visit Nehru Market, Shamli or inquire online for direct delivery!
+                        </p>
+                        <div class="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
+                            <button onclick="navigate('catalog')" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                                <i class="fa-solid fa-compass"></i> Explore Catalog
+                            </button>
+                            <a href="tel:9897043680" class="bg-white hover:bg-slate-50 text-slate-900 border-2 border-slate-900 font-bold px-6 py-3 rounded-xl shadow transition-all flex items-center gap-2">
+                                <i class="fa-solid fa-phone text-pink-600"></i> Call 9897043680
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Hero Visual Graphic -->
+                    <div class="w-full max-w-sm md:max-w-md bg-white p-6 rounded-2xl shadow-xl border border-amber-200 text-center relative">
+                        <div class="absolute -top-3 -right-3 bg-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                            No Sarees • 100% Quality
+                        </div>
+                        <div class="w-20 h-20 mx-auto bg-amber-100 rounded-full flex items-center justify-center text-pink-600 text-3xl font-black mb-3">
+                            <i class="fa-solid fa-shirt"></i>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Complete Family Clothing</h3>
+                        <p class="text-xs text-slate-600 mt-1">Suits, Shirts, Jeans, Ethnic Wear, Kids Apparel & Accessories.</p>
+                        <div class="mt-4 pt-4 border-t border-slate-100 flex justify-around text-center">
+                            <div>
+                                <p class="text-base font-black text-slate-900">50+ Yrs</p>
+                                <p class="text-[10px] text-slate-500 font-semibold uppercase">Trust</p>
+                            </div>
+                            <div class="border-r border-slate-200"></div>
+                            <div>
+                                <p class="text-base font-black text-pink-600">Shamli</p>
+                                <p class="text-[10px] text-slate-500 font-semibold uppercase">Nehru Market</p>
+                            </div>
+                            <div class="border-r border-slate-200"></div>
+                            <div>
+                                <p class="text-base font-black text-amber-600">Direct</p>
+                                <p class="text-[10px] text-slate-500 font-semibold uppercase">Order Phone</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Shop by Category</h2>
+                        <p class="text-xs text-slate-500 font-medium">Curated family fashion collections</p>
+                    </div>
+                    <button onclick="navigate('catalog')" class="text-pink-600 font-bold text-xs sm:text-sm hover:underline flex items-center gap-1">
+                        View All <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+                <div id="category-cards-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-3"></div>
+            </div>
+
+            <!-- Featured Products Container -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Latest Arrivals</h2>
+                        <p class="text-xs text-slate-500 font-medium">Fresh styles added directly from Lucky Fashion Shamli</p>
+                    </div>
+                </div>
+                <div id="home-products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+            </div>
+        </section>
+
+        <!-- CATALOG / SHOP PAGE VIEW -->
+        <section id="view-catalog" class="page-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+            <div class="bg-white p-4 sm:p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col lg:flex-row gap-4 items-stretch lg:items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-black text-slate-900">Explore Collection</h1>
+                    <p id="catalog-count-label" class="text-xs text-slate-500 font-medium">Showing 0 products</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+                    <select id="filter-category" onchange="applyFilters()" class="bg-slate-100 text-xs font-semibold text-slate-800 rounded-xl px-3 py-2 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        <option value="ALL">All Categories</option>
+                        <option value="Men">Men</option>
+                        <option value="Women">Women</option>
+                        <option value="Kids">Kids</option>
+                        <option value="Family Wear">Family Wear</option>
+                        <option value="Ethnic Wear">Ethnic Wear</option>
+                        <option value="Casual Wear">Casual Wear</option>
+                        <option value="Accessories">Accessories</option>
+                    </select>
+                    <select id="filter-size" onchange="applyFilters()" class="bg-slate-100 text-xs font-semibold text-slate-800 rounded-xl px-3 py-2 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        <option value="ALL">All Sizes</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                        <option value="Free Size">Free Size</option>
+                    </select>
+                    <select id="filter-sort" onchange="applyFilters()" class="bg-slate-100 text-xs font-semibold text-slate-800 rounded-xl px-3 py-2 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-pink-500">
+                        <option value="newest">Newest First</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                    <button onclick="resetFilters()" class="text-xs text-pink-600 font-bold hover:underline px-2">Reset</button>
+                </div>
+            </div>
+            <div id="catalog-products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+        </section>
+
+        <!-- WISHLIST PAGE VIEW -->
+        <section id="view-wishlist" class="page-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <h1 class="text-2xl font-black text-slate-900 mb-2">My Wishlist</h1>
+            <p class="text-xs text-slate-500 mb-6 font-medium">Saved items you like from Lucky Fashion</p>
+            <div id="wishlist-products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
+        </section>
+
+        <!-- ADMIN DASHBOARD PAGE VIEW -->
+        <section id="view-admin" class="page-view hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <div class="bg-slate-900 text-white p-6 rounded-2xl shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-l-8 border-amber-400">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded uppercase">Store Control</span>
+                        <span class="text-xs text-slate-400">Shamli Hub</span>
+                    </div>
+                    <h1 class="text-2xl font-black text-white mt-1">Admin Dashboard</h1>
+                    <p class="text-xs text-slate-300">Manage Inventory & Live Customer Order Inquiries</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="openAddProductModal()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition-all">
+                        <i class="fa-solid fa-plus text-sm"></i> Add New Product
+                    </button>
+                    <button onclick="adminLogout()" class="bg-slate-800 hover:bg-slate-700 text-pink-400 font-bold px-3.5 py-2.5 rounded-xl text-xs border border-slate-700">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex border-b border-slate-200 space-x-6">
+                <button onclick="switchAdminTab('inquiries')" id="admin-tab-btn-inquiries" class="py-3 font-extrabold text-sm text-pink-600 border-b-2 border-pink-600 flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-list"></i> Customer Inquiries
+                    <span id="admin-inquiries-badge" class="bg-pink-100 text-pink-700 text-xs px-2 py-0.5 rounded-full font-black">0</span>
+                </button>
+                <button onclick="switchAdminTab('inventory')" id="admin-tab-btn-inventory" class="py-3 font-extrabold text-sm text-slate-500 hover:text-slate-900 flex items-center gap-2">
+                    <i class="fa-solid fa-boxes-stacked"></i> Products Inventory
+                    <span id="admin-inventory-badge" class="bg-slate-200 text-slate-800 text-xs px-2 py-0.5 rounded-full font-black">0</span>
+                </button>
+            </div>
+
+            <!-- ADMIN TAB 1: INQUIRIES LIST -->
+            <div id="admin-tab-inquiries" class="space-y-4">
+                <div id="admin-inquiries-list" class="space-y-4"></div>
+            </div>
+
+            <!-- ADMIN TAB 2: INVENTORY MANAGEMENT -->
+            <div id="admin-tab-inventory" class="hidden space-y-4">
+                <div class="overflow-x-auto bg-white rounded-2xl border border-slate-200 shadow-sm">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 font-extrabold uppercase">
+                                <th class="p-4">Item</th>
+                                <th class="p-4">Category</th>
+                                <th class="p-4">Price</th>
+                                <th class="p-4">Stock</th>
+                                <th class="p-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-inventory-tbody" class="divide-y divide-slate-100"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CART DRAWER / OVERLAY -->
+    <div id="cart-drawer-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300" onclick="closeCartDrawer()"></div>
+    <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between">
+        <div class="p-4 sm:p-5 border-b border-slate-200 flex items-center justify-between bg-amber-50">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-bag-shopping text-pink-600 text-xl"></i>
+                <h2 class="font-black text-slate-900 text-base">Your Shopping Cart</h2>
+            </div>
+            <button onclick="closeCartDrawer()" class="text-slate-400 hover:text-slate-700 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div id="cart-drawer-items" class="p-4 flex-1 overflow-y-auto space-y-3 divide-y divide-slate-100"></div>
+        <div id="cart-drawer-footer" class="p-5 border-t border-slate-200 bg-slate-50 space-y-3">
+            <div class="flex justify-between text-sm font-bold text-slate-800">
+                <span>Total Estimated Value:</span>
+                <span id="cart-total-amount" class="text-base text-pink-600 font-black">₹0</span>
+            </div>
+            <p class="text-[11px] text-slate-500 leading-tight">
+                * Submit order inquiry to check current store availability & claim best Nehru Market discounted prices.
+            </p>
+            <button id="cart-checkout-btn" onclick="submitOrderInquiry()" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-black py-3 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-sm">
+                <i class="fa-solid fa-paper-plane"></i> Submit Order Inquiry
+            </button>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="product-detail-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden relative max-h-[90vh] flex flex-col md:flex-row">
+            <button onclick="closeProductModal()" class="absolute top-3 right-3 z-10 bg-slate-900/50 hover:bg-slate-900 text-white rounded-full h-8 w-8 flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="md:w-1/2 bg-slate-100 flex items-center justify-center p-4">
+                <img id="modal-product-image" src="" alt="" class="max-h-72 object-contain rounded-lg">
+            </div>
+            <div class="md:w-1/2 p-6 flex flex-col justify-between space-y-4">
+                <div>
+                    <span id="modal-product-category" class="text-[10px] font-black uppercase tracking-wider bg-pink-100 text-pink-700 px-2 py-0.5 rounded">Category</span>
+                    <h2 id="modal-product-title" class="text-xl font-black text-slate-900 mt-2">Product Title</h2>
+                    <div class="flex items-baseline gap-2 mt-2">
+                        <span id="modal-product-price" class="text-2xl font-black text-pink-600">₹0</span>
+                        <span id="modal-product-orig-price" class="text-xs text-slate-400 line-through">₹0</span>
+                    </div>
+                    <p id="modal-product-desc" class="text-xs text-slate-600 mt-3 leading-relaxed">Description goes here.</p>
+                    <div class="mt-4">
+                        <label class="block text-xs font-bold text-slate-700 mb-1">Available Sizes:</label>
+                        <div id="modal-product-sizes" class="flex flex-wrap gap-1.5"></div>
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex gap-2">
+                    <button id="modal-add-cart-btn" class="flex-1 bg-amber-400 hover:bg-amber-500 text-slate-950 font-black py-2.5 rounded-xl text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                    </button>
+                    <a href="tel:9897043680" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-3 py-2.5 rounded-xl text-xs flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-phone text-amber-400"></i> Call Store
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTHENTICATION / ADMIN LOGIN MODAL -->
+    <div id="auth-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl p-6 relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex bg-slate-100 p-1 rounded-xl mb-6">
+                <button id="auth-mode-btn-user" onclick="setAuthMode('user')" class="flex-1 py-1.5 text-xs font-extrabold rounded-lg transition-all bg-white text-slate-900 shadow-sm">
+                    Customer Account
+                </button>
+                <button id="auth-mode-btn-admin" onclick="setAuthMode('admin')" class="flex-1 py-1.5 text-xs font-extrabold rounded-lg transition-all text-slate-500">
+                    Store Manager
+                </button>
+            </div>
+            <!-- Customer Form -->
+            <form id="form-user-auth" onsubmit="handleUserLogin(event)" class="space-y-4">
+                <h2 class="text-lg font-black text-slate-900">Customer Details</h2>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="user-input-name" required placeholder="Enter your full name" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-pink-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Phone Number</label>
+                    <input type="tel" id="user-input-phone" required placeholder="10-digit mobile number" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-pink-500 outline-none">
+                </div>
+                <button type="submit" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-extrabold py-2.5 rounded-xl text-xs transition-all shadow-md">
+                    Continue Shopping
+                </button>
+            </form>
+            <!-- Admin Form -->
+            <form id="form-admin-auth" onsubmit="handleAdminLogin(event)" class="space-y-4 hidden">
+                <h2 class="text-lg font-black text-slate-900">Admin Login</h2>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Authorized Mobile</label>
+                    <input type="tel" id="admin-input-phone" required placeholder="Mobile Number" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-amber-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">Security PIN</label>
+                    <input type="password" id="admin-input-pin" required placeholder="Security PIN" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-xs focus:ring-2 focus:ring-amber-500 outline-none">
+                </div>
+                <button type="submit" class="w-full bg-slate-900 hover:bg-slate-800 text-amber-400 font-extrabold py-2.5 rounded-xl text-xs transition-all shadow-md">
+                    Authenticate
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADD / EDIT PRODUCT MODAL (ADMIN) -->
+    <div id="add-product-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAddProductModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h2 id="product-form-title" class="text-xl font-black text-slate-900 mb-4">Add New Inventory Item</h2>
+            
+            <form onsubmit="handleSaveProduct(event)" class="space-y-4 text-xs">
+                <input type="hidden" id="prod-form-id">
+                
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Product Title *</label>
+                    <input type="text" id="prod-form-name" required placeholder="e.g. Premium Cotton Kurta Set" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-pink-500 outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Category *</label>
+                        <select id="prod-form-category" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-pink-500 outline-none">
+                            <option value="Men">Men</option>
+                            <option value="Women">Women</option>
+                            <option value="Kids">Kids</option>
+                            <option value="Family Wear">Family Wear</option>
+                            <option value="Ethnic Wear">Ethnic Wear</option>
+                            <option value="Casual Wear">Casual Wear</option>
+                            <option value="Accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Stock Status *</label>
+                        <select id="prod-form-stock" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-pink-500 outline-none">
+                            <option value="In Stock">In Stock</option>
+                            <option value="Limited Stock">Limited Stock</option>
+                            <option value="Out of Stock">Out of Stock</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Price (₹) *</label>
+                        <input type="number" id="prod-form-price" required placeholder="999" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-pink-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Original MRP (₹)</label>
+                        <input type="number" id="prod-form-orig-price" placeholder="1499" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-pink-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Image URL *</label>
+                    <input type="url" id="prod-form-image" required placeholder="https://images.unsplash.com/..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-pink-500 outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Available Sizes (Comma Separated)</label>
+                    <input type="text" id="prod-form-sizes" placeholder="S, M, L, XL" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-pink-500 outline-none">
+                </div>
+
+                <div>
+                    <label class="block font-bold text-slate-700 mb-1">Description</label>
+                    <textarea id="prod-form-desc" rows="3" placeholder="Product fabric, wash care instructions, etc..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:ring-2 focus:ring-pink-500 outline-none"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-extrabold py-3 rounded-xl transition-all shadow-md">
+                    Save Product in Catalog
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-300 border-t border-amber-400/30 pt-12 pb-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="space-y-3">
+                <h3 class="text-white font-black text-lg flex items-center gap-2">
+                    <span class="bg-amber-400 text-slate-950 px-2 py-0.5 rounded text-xs">EST. 1974</span> Lucky Fashion
+                </h3>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Shamli's trusted destination for complete family wear. Quality apparel for men, women, kids, and ethnic celebrations. Visit us at Nehru Market.
+                </p>
+                <div class="pt-2 flex space-x-3 text-amber-400">
+                    <a href="https://instagram.com/luckyfashion011" target="_blank" class="hover:text-white"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="tel:9897043680" class="hover:text-white"><i class="fa-solid fa-phone text-lg"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3">Quick Links</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" onclick="navigate('home')" class="hover:text-amber-400">Home</a></li>
+                    <li><a href="#" onclick="navigate('catalog')" class="hover:text-amber-400">Full Catalog</a></li>
+                    <li><a href="#" onclick="navigate('wishlist')" class="hover:text-amber-400">My Wishlist</a></li>
+                    <li><a href="#" onclick="openAuthModal()" class="hover:text-amber-400">Customer Login / Admin</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3">Categories</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#" onclick="filterByCategory('Men')" class="hover:text-amber-400">Men's Wear</a></li>
+                    <li><a href="#" onclick="filterByCategory('Women')" class="hover:text-amber-400">Women's Wear</a></li>
+                    <li><a href="#" onclick="filterByCategory('Kids')" class="hover:text-amber-400">Kids Collection</a></li>
+                    <li><a href="#" onclick="filterByCategory('Ethnic Wear')" class="hover:text-amber-400">Ethnic & Festives</a></li>
+                    <li><a href="#" onclick="filterByCategory('Casual Wear')" class="hover:text-amber-400">Casual & Daily Wear</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-sm mb-3">Visit & Contact</h4>
+                <ul class="space-y-2 text-xs text-slate-400">
+                    <li class="flex items-start gap-2">
+                        <i class="fa-solid fa-location-dot text-amber-400 mt-0.5"></i>
+                        <span>Nehru Market, Shamli, Uttar Pradesh 247776</span>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-phone text-amber-400"></i>
+                        <a href="tel:9897043680" class="hover:underline text-white font-bold">9897043680</a>
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-amber-400"></i>
+                        <span>Open Daily: 10:00 AM – 9:00 PM</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-800 text-center text-xs text-slate-500 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>© 1974 - 2026 Lucky Fashion, Shamli. All Rights Reserved.</p>
+            <p>Designed with pride for Nehru Market shoppers.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION CORE -->
+    <script>
+        const DEFAULT_PRODUCTS = [
+            {
+                id: 'prod-1',
+                name: 'Men Classic Cotton Formal Shirt',
+                category: 'Men',
+                price: 799,
+                origPrice: 1299,
+                image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80',
+                sizes: ['S', 'M', 'L', 'XL'],
+                stock: 'In Stock',
+                desc: 'Premium breathable cotton formal shirt suitable for office wear and formal occasions.',
+                createdAt: Date.now() - 8000000
+            },
+            {
+                id: 'prod-2',
+                name: 'Designer Embroidered Kurta Suit',
+                category: 'Ethnic Wear',
+                price: 1899,
+                origPrice: 2999,
+                image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80',
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                stock: 'In Stock',
+                desc: 'Gorgeous ethnic suit set with fine embroidery work. Perfect for family celebrations and festivals.',
+                createdAt: Date.now() - 7000000
+            },
+            {
+                id: 'prod-3',
+                name: 'Kids Festive Party Wear Frock',
+                category: 'Kids',
+                price: 649,
+                origPrice: 999,
+                image: 'https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=600&q=80',
+                sizes: ['S', 'M', 'L'],
+                stock: 'Limited Stock',
+                desc: 'Comfortable and vibrant party wear dress for young girls. Soft skin-friendly fabric.',
+                createdAt: Date.now() - 6000000
+            },
+            {
+                id: 'prod-4',
+                name: 'Family Matching Casual T-Shirt Combo',
+                category: 'Family Wear',
+                price: 1299,
+                origPrice: 1999,
+                image: 'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80',
+                sizes: ['S', 'M', 'L', 'XL'],
+                stock: 'In Stock',
+                desc: 'Matching casual tees for the family. 100% combed cotton comfort.',
+                createdAt: Date.now() - 5000000
+            },
+            {
+                id: 'prod-5',
+                name: 'Women Casual Daily Wear Kurti',
+                category: 'Women',
+                price: 599,
+                origPrice: 999,
+                image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=600&q=80',
+                sizes: ['M', 'L', 'XL', 'XXL'],
+                stock: 'In Stock',
+                desc: 'Elegant daily wear kurti with modern prints and soothing fabric.',
+                createdAt: Date.now() - 4000000
+            },
+            {
+                id: 'prod-6',
+                name: 'Men Slim Fit Stretch Jeans',
+                category: 'Men',
+                price: 1199,
+                origPrice: 1799,
+                image: 'https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=600&q=80',
+                sizes: ['M', 'L', 'XL'],
+                stock: 'In Stock',
+                desc: 'Durable stretchable denim jeans designed for everyday rugged use and supreme comfort.',
+                createdAt: Date.now() - 3000000
+            },
+            {
+                id: 'prod-7',
+                name: 'Kids Smart Denim Jacket & Tee Set',
+                category: 'Kids',
+                price: 899,
+                origPrice: 1399,
+                image: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=600&q=80',
+                sizes: ['S', 'M', 'L'],
+                stock: 'In Stock',
+                desc: 'Stylish denim combo set for kids. Trendy look with easy movement.',
+                createdAt: Date.now() - 2000000
+            },
+            {
+                id: 'prod-8',
+                name: 'Designer Casual Winter Shawl / Stole',
+                category: 'Accessories',
+                price: 499,
+                origPrice: 799,
+                image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?auto=format&fit=crop&w=600&q=80',
+                sizes: ['Free Size'],
+                stock: 'In Stock',
+                desc: 'Soft woolen wrap stole and shawl accessory for winter elegance.',
+                createdAt: Date.now() - 1000000
+            }
+        ];
+
+        const CATEGORIES_LIST = [
+            { name: 'All', icon: 'fa-layer-group', query: 'ALL' },
+            { name: 'Men', icon: 'fa-person', query: 'Men' },
+            { name: 'Women', icon: 'fa-person-dress', query: 'Women' },
+            { name: 'Kids', icon: 'fa-child', query: 'Kids' },
+            { name: 'Family Wear', icon: 'fa-people-group', query: 'Family Wear' },
+            { name: 'Ethnic Wear', icon: 'fa-star-of-david', query: 'Ethnic Wear' },
+            { name: 'Accessories', icon: 'fa-glasses', query: 'Accessories' }
+        ];
+
+        let state = {
+            products: [],
+            cart: [],
+            wishlist: [],
+            inquiries: [],
+            currentUser: null,
+            isAdmin: false,
+            activeView: 'home',
+            searchQuery: ''
+        };
+
+        function loadState() {
+            try {
+                const savedProducts = localStorage.getItem('lf_products');
+                state.products = savedProducts ? JSON.parse(savedProducts) : DEFAULT_PRODUCTS;
+                
+                const savedCart = localStorage.getItem('lf_cart');
+                state.cart = savedCart ? JSON.parse(savedCart) : [];
+
+                const savedWishlist = localStorage.getItem('lf_wishlist');
+                state.wishlist = savedWishlist ? JSON.parse(savedWishlist) : [];
+
+                const savedInquiries = localStorage.getItem('lf_inquiries');
+                state.inquiries = savedInquiries ? JSON.parse(savedInquiries) : [];
+
+                const savedUser = localStorage.getItem('lf_currentUser');
+                state.currentUser = savedUser ? JSON.parse(savedUser) : null;
+
+                const savedIsAdmin = localStorage.getItem('lf_isAdmin');
+                state.isAdmin = savedIsAdmin === 'true';
+            } catch (e) {
+                console.error("Storage loading error:", e);
+                state.products = DEFAULT_PRODUCTS;
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('lf_products', JSON.stringify(state.products));
+                localStorage.setItem('lf_cart', JSON.stringify(state.cart));
+                localStorage.setItem('lf_wishlist', JSON.stringify(state.wishlist));
+                localStorage.setItem('lf_inquiries', JSON.stringify(state.inquiries));
+                if (state.currentUser) {
+                    localStorage.setItem('lf_currentUser', JSON.stringify(state.currentUser));
+                } else {
+                    localStorage.removeItem('lf_currentUser');
+                }
+                localStorage.setItem('lf_isAdmin', state.isAdmin ? 'true' : 'false');
+            } catch (e) {
+                console.error("Storage saving error:", e);
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const bgCol = type === 'success' ? 'bg-slate-900 text-white border-amber-400' : 'bg-pink-600 text-white border-white';
+            toast.className = `${bgCol} px-4 py-3 rounded-xl shadow-xl border-l-4 text-xs font-bold flex items-center justify-between pointer-events-auto transform translate-y-2 opacity-0 transition-all duration-300`;
+            toast.innerHTML = `<span><i class="fa-solid ${type === 'success' ? 'fa-circle-check text-amber-400' : 'fa-circle-exclamation'} mr-2"></i>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 10);
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function initApp() {
+            loadState();
+            renderCategoriesGrid();
+            renderProducts();
+            updateBadges();
+            updateHeaderUserStatus();
+            navigate(state.activeView);
+        }
+
+        function navigate(viewId) {
+            state.activeView = viewId;
+            document.querySelectorAll('.page-view').forEach(el => el.classList.add('hidden'));
+            const targetView = document.getElementById(`view-${viewId}`);
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            if (viewId === 'catalog') {
+                renderCatalogProducts();
+            } else if (viewId === 'wishlist') {
+                renderWishlistProducts();
+            } else if (viewId === 'admin') {
+                if (!state.isAdmin) {
+                    showToast('Admin access required. Please login with store credentials.', 'error');
+                    openAuthModal();
+                    setAuthMode('admin');
+                    return;
+                }
+                renderAdminDashboard();
+            }
+        }
+
+        function renderCategoriesGrid() {
+            const grid = document.getElementById('category-cards-grid');
+            if (!grid) return;
+            grid.innerHTML = CATEGORIES_LIST.map(cat => `
+                <div onclick="filterByCategory('${cat.query}')" class="bg-white hover:bg-amber-50 p-4 rounded-2xl border border-slate-200 shadow-sm cursor-pointer text-center transition-all group">
+                    <div class="w-12 h-12 mx-auto bg-amber-100 group-hover:bg-pink-600 group-hover:text-white rounded-full flex items-center justify-center text-pink-600 text-lg mb-2 transition-colors">
+                        <i class="fa-solid ${cat.icon}"></i>
+                    </div>
+                    <span class="font-extrabold text-slate-800 text-xs">${cat.name}</span>
+                </div>
+            `).join('');
+        }
+
+        function filterByCategory(categoryName) {
+            navigate('catalog');
+            document.getElementById('filter-category').value = categoryName;
+            applyFilters();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('home-products-grid');
+            if (!grid) return;
+            const latest = [...state.products].sort((a,b) => b.createdAt - a.createdAt).slice(0, 8);
+            grid.innerHTML = latest.map(p => productCardTemplate(p)).join('');
+        }
+
+        function productCardTemplate(p) {
+            const isWishlisted = state.wishlist.some(w => w.id === p.id);
+            return `
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden flex flex-col justify-between group">
+                    <div class="relative bg-slate-100 aspect-[4/5] overflow-hidden cursor-pointer" onclick="openProductModal('${p.id}')">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/400x500/f8fafc/111827?text=Lucky+Fashion'">
+                        <span class="absolute top-2 left-2 bg-slate-900/80 text-white text-[9px] font-black uppercase px-2 py-0.5 rounded backdrop-blur-sm">${p.category}</span>
+                        <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-2 right-2 bg-white/90 hover:bg-white text-slate-800 rounded-full h-8 w-8 flex items-center justify-center shadow transition-all">
+                            <i class="${isWishlisted ? 'fa-solid text-pink-600' : 'fa-regular text-slate-600'} fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 onclick="openProductModal('${p.id}')" class="font-extrabold text-slate-900 text-xs sm:text-sm line-clamp-2 cursor-pointer hover:text-pink-600">${p.name}</h3>
+                            <div class="flex items-baseline gap-2 mt-2">
+                                <span class="text-pink-600 font-black text-sm sm:text-base">₹${p.price}</span>
+                                ${p.origPrice ? `<span class="text-slate-400 text-xs line-through">₹${p.origPrice}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                            <span class="text-[10px] font-semibold text-slate-500">${p.stock}</span>
+                            <button onclick="addToCart('${p.id}')" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black px-3 py-1.5 rounded-xl text-xs flex items-center gap-1 shadow-sm transition-all">
+                                <i class="fa-solid fa-cart-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCatalogProducts() {
+            const grid = document.getElementById('catalog-products-grid');
+            if (!grid) return;
+
+            const categoryFilter = document.getElementById('filter-category').value;
+            const sizeFilter = document.getElementById('filter-size').value;
+            const sortFilter = document.getElementById('filter-sort').value;
+
+            let filtered = state.products.filter(p => {
+                const matchCategory = (categoryFilter === 'ALL' || p.category === categoryFilter);
+                const matchSize = (sizeFilter === 'ALL' || (p.sizes && p.sizes.includes(sizeFilter)));
+                const matchSearch = (!state.searchQuery || p.name.toLowerCase().includes(state.searchQuery.toLowerCase()) || p.category.toLowerCase().includes(state.searchQuery.toLowerCase()) || p.desc.toLowerCase().includes(state.searchQuery.toLowerCase()));
+                return matchCategory && matchSize && matchSearch;
+            });
+
+            if (sortFilter === 'price-low') filtered.sort((a,b) => a.price - b.price);
+            if (sortFilter === 'price-high') filtered.sort((a,b) => b.price - a.price);
+            if (sortFilter === 'newest') filtered.sort((a,b) => b.createdAt - a.createdAt);
+
+            document.getElementById('catalog-count-label').innerText = `Showing ${filtered.length} products`;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center">
+                        <div class="w-16 h-16 mx-auto bg-amber-100 text-pink-600 rounded-full flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-solid fa-shirt"></i>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">No matching garments found</h3>
+                        <p class="text-xs text-slate-500 mt-1">Try resetting filters or search terms.</p>
+                        <button onclick="resetFilters()" class="mt-4 bg-slate-900 text-white font-bold px-4 py-2 rounded-xl text-xs">Reset All Filters</button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => productCardTemplate(p)).join('');
+        }
+
+        function applyFilters() {
+            renderCatalogProducts();
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-category').value = 'ALL';
+            document.getElementById('filter-size').value = 'ALL';
+            document.getElementById('filter-sort').value = 'newest';
+            state.searchQuery = '';
+            const mainSearch = document.getElementById('main-search-input');
+            const mobSearch = document.getElementById('mobile-search-input');
+            if (mainSearch) mainSearch.value = '';
+            if (mobSearch) mobSearch.value = '';
+            renderCatalogProducts();
+        }
+
+        function handleSearch(e) {
+            state.searchQuery = e.target.value.trim();
+            if (state.activeView !== 'catalog') {
+                navigate('catalog');
+            } else {
+                renderCatalogProducts();
+            }
+        }
+
+        function toggleWishlist(productId) {
+            const index = state.wishlist.findIndex(w => w.id === productId);
+            const product = state.products.find(p => p.id === productId);
+            if (index > -1) {
+                state.wishlist.splice(index, 1);
+                showToast(`Removed "${product ? product.name : 'Item'}" from Wishlist.`, 'success');
+            } else {
+                if (product) {
+                    state.wishlist.push(product);
+                    showToast(`Added "${product.name}" to Wishlist!`, 'success');
+                }
+            }
+            saveState();
+            updateBadges();
+            if (state.activeView === 'wishlist') renderWishlistProducts();
+            else if (state.activeView === 'catalog') renderCatalogProducts();
+            else if (state.activeView === 'home') renderProducts();
+        }
+
+        function renderWishlistProducts() {
+            const grid = document.getElementById('wishlist-products-grid');
+            if (!grid) return;
+            if (state.wishlist.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center">
+                        <div class="w-16 h-16 mx-auto bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-2xl mb-3">
+                            <i class="fa-regular fa-heart"></i>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Your Wishlist is Empty</h3>
+                        <p class="text-xs text-slate-500 mt-1">Tap the heart icon on any product to save it here.</p>
+                        <button onclick="navigate('catalog')" class="mt-4 bg-pink-600 text-white font-bold px-5 py-2.5 rounded-xl text-xs">Explore Catalog</button>
+                    </div>
+                `;
+                return;
+            }
+            grid.innerHTML = state.wishlist.map(p => productCardTemplate(p)).join('');
+        }
+
+        function addToCart(productId) {
+            const product = state.products.find(p => p.id === productId);
+            if (!product) return;
+            const existing = state.cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                state.cart.push({ ...product, qty: 1 });
+            }
+            saveState();
+            updateBadges();
+            showToast(`Added "${product.name}" to your cart.`, 'success');
+            openCartDrawer();
+        }
+
+        function updateCartQty(productId, delta) {
+            const item = state.cart.find(i => i.id === productId);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                state.cart = state.cart.filter(i => i.id !== productId);
+            }
+            saveState();
+            updateBadges();
+            renderCartDrawerItems();
+        }
+
+        function openCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-drawer-overlay');
+            if (drawer && overlay) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                drawer.classList.remove('translate-x-full');
+                renderCartDrawerItems();
+            }
+        }
+
+        function closeCartDrawer() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-drawer-overlay');
+            if (drawer && overlay) {
+                drawer.classList.add('translate-x-full');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => overlay.classList.add('hidden'), 300);
+            }
+        }
+
+        function renderCartDrawerItems() {
+            const container = document.getElementById('cart-drawer-items');
+            const totalEl = document.getElementById('cart-total-amount');
+            if (!container || !totalEl) return;
+
+            let totalVal = 0;
+            if (state.cart.length === 0) {
+                container.innerHTML = `
+                    <div class="py-12 text-center">
+                        <div class="w-14 h-14 mx-auto bg-amber-100 text-pink-600 rounded-full flex items-center justify-center text-xl mb-3">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900 text-sm">Your cart is empty</h3>
+                        <p class="text-[11px] text-slate-500 mt-1">Add items from the store to inquire.</p>
+                    </div>
+                `;
+                totalEl.innerText = '₹0';
+                return;
+            }
+
+            container.innerHTML = state.cart.map(item => {
+                totalVal += item.price * item.qty;
+                return `
+                    <div class="py-3 flex items-center gap-3">
+                        <img src="${item.image}" alt="" class="w-14 h-14 object-cover rounded-xl bg-slate-100" onerror="this.src='https://placehold.co/100x100/f8fafc/111827?text=LF'">
+                        <div class="flex-1">
+                            <h4 class="font-extrabold text-slate-900 text-xs line-clamp-1">${item.name}</h4>
+                            <p class="text-pink-600 font-black text-xs mt-0.5">₹${item.price} x ${item.qty}</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="updateCartQty('${item.id}', -1)" class="bg-slate-100 hover:bg-slate-200 h-6 w-6 rounded-lg font-black text-xs flex items-center justify-center">-</button>
+                                <span class="text-xs font-bold">${item.qty}</span>
+                                <button onclick="updateCartQty('${item.id}', 1)" class="bg-slate-100 hover:bg-slate-200 h-6 w-6 rounded-lg font-black text-xs flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            totalEl.innerText = `₹${totalVal}`;
+        }
+
+        function submitOrderInquiry() {
+            if (state.cart.length === 0) {
+                showToast('Your cart is empty!', 'error');
+                return;
+            }
+            if (!state.currentUser) {
+                showToast('Please provide your name and phone number first.', 'error');
+                closeCartDrawer();
+                openAuthModal();
+                return;
+            }
+
+            const totalAmount = state.cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const inquiry = {
+                id: 'INQ-' + Math.floor(1000 + Math.random() * 9000),
+                customerName: state.currentUser.name,
+                customerPhone: state.currentUser.phone,
+                items: [...state.cart],
+                totalAmount: totalAmount,
+                status: 'Pending Inquiry',
+                createdAt: Date.now()
+            };
+
+            state.inquiries.unshift(inquiry);
+            state.cart = [];
+            saveState();
+            updateBadges();
+            closeCartDrawer();
+
+            showToast('Order inquiry submitted successfully! The store manager will call you shortly.', 'success');
+            
+            // Trigger WhatsApp direct order intent if desired or show confirmation
+            setTimeout(() => {
+                const message = encodeURIComponent(`Hello Lucky Fashion (Nehru Market, Shamli), I submitted Inquiry #${inquiry.id} for ₹${totalAmount}. Please confirm availability.`);
+                window.open(`https://wa.me/919897043680?text=${message}`, '_blank');
+            }, 1000);
+        }
+
+        let currentModalProductId = null;
+        function openProductModal(productId) {
+            const p = state.products.find(item => item.id === productId);
+            if (!p) return;
+            currentModalProductId = productId;
+
+            document.getElementById('modal-product-image').src = p.image;
+            document.getElementById('modal-product-category').innerText = p.category;
+            document.getElementById('modal-product-title').innerText = p.name;
+            document.getElementById('modal-product-price').innerText = `₹${p.price}`;
+            document.getElementById('modal-product-orig-price').innerText = p.origPrice ? `₹${p.origPrice}` : '';
+            document.getElementById('modal-product-desc').innerText = p.desc || 'Quality family wear garment from Lucky Fashion, Shamli.';
+            
+            const sizesContainer = document.getElementById('modal-product-sizes');
+            if (p.sizes && p.sizes.length > 0) {
+                sizesContainer.innerHTML = p.sizes.map(s => `<span class="bg-slate-100 border border-slate-200 text-slate-800 text-[10px] font-bold px-2.5 py-1 rounded-lg">${s}</span>`).join('');
+            } else {
+                sizesContainer.innerHTML = `<span class="text-xs text-slate-500">Standard Fit</span>`;
+            }
+
+            const addBtn = document.getElementById('modal-add-cart-btn');
+            addBtn.onclick = function() {
+                addToCart(p.id);
+                closeProductModal();
+            };
+
+            document.getElementById('product-detail-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-detail-modal').classList.add('hidden');
+        }
+
+        function openAuthModal() {
+            document.getElementById('auth-modal').classList.remove('hidden');
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function setAuthMode(mode) {
+            const userBtn = document.getElementById('auth-mode-btn-user');
+            const adminBtn = document.getElementById('auth-mode-btn-admin');
+            const userForm = document.getElementById('form-user-auth');
+            const adminForm = document.getElementById('form-admin-auth');
+
+            if (mode === 'user') {
+                userBtn.className = 'flex-1 py-1.5 text-xs font-extrabold rounded-lg transition-all bg-white text-slate-900 shadow-sm';
+                adminBtn.className = 'flex-1 py-1.5 text-xs font-extrabold rounded-lg transition-all text-slate-500';
+                userForm.classList.remove('hidden');
+                adminForm.classList.add('hidden');
+            } else {
+                adminBtn.className = 'flex-1 py-1.5 text-xs font-extrabold rounded-lg transition-all bg-white text-slate-900 shadow-sm';
+                userBtn.className = 'flex-1 py-1.5 text-xs font-extrabold rounded-lg transition-all text-slate-500';
+                adminForm.classList.remove('hidden');
+                userForm.classList.add('hidden');
+            }
+        }
+
+        function handleUserLogin(e) {
+            e.preventDefault();
+            const name = document.getElementById('user-input-name').value.trim();
+            const phone = document.getElementById('user-input-phone').value.trim();
+            if (!name || !phone) return;
+
+            state.currentUser = { name, phone };
+            saveState();
+            updateHeaderUserStatus();
+            closeAuthModal();
+            showToast(`Welcome, ${name}! Your customer profile is active.`, 'success');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const phone = document.getElementById('admin-input-phone').value.trim();
+            const pin = document.getElementById('admin-input-pin').value.trim();
+
+            // Store Authorized credentials (Phone: 9897043680, PIN: 1974)
+            if (phone === '9897043680' && pin === '1974') {
+                state.isAdmin = true;
+                saveState();
+                closeAuthModal();
+                showToast('Store Manager authenticated successfully!', 'success');
+                navigate('admin');
+            } else {
+                showToast('Invalid Manager Phone or Security PIN.', 'error');
+            }
+        }
+
+        function adminLogout() {
+            state.isAdmin = false;
+            saveState();
+            showToast('Logged out from admin dashboard.', 'success');
+            navigate('home');
+        }
+
+        function updateHeaderUserStatus() {
+            const statusDiv = document.getElementById('user-header-status');
+            if (!statusDiv) return;
+
+            if (state.isAdmin) {
+                statusDiv.innerHTML = `
+                    <button onclick="navigate('admin')" class="flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1.5 rounded-full text-xs font-black shadow-sm">
+                        <i class="fa-solid fa-shield-halved"></i> Admin
+                    </button>
+                `;
+            } else if (state.currentUser) {
+                statusDiv.innerHTML = `
+                    <button onclick="openAuthModal()" class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 px-3 py-1.5 rounded-full text-xs font-bold">
+                        <i class="fa-solid fa-user-check text-pink-600"></i> ${state.currentUser.name.split(' ')[0]}
+                    </button>
+                `;
+            } else {
+                statusDiv.innerHTML = `
+                    <button onclick="openAuthModal()" class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 px-3.5 py-1.5 rounded-full text-xs font-bold">
+                        <i class="fa-solid fa-user text-pink-600"></i> Login
+                    </button>
+                `;
+            }
+        }
+
+        function switchAdminTab(tabName) {
+            const tabInquiries = document.getElementById('admin-tab-inquiries');
+            const tabInventory = document.getElementById('admin-tab-inventory');
+            const btnInquiries = document.getElementById('admin-tab-btn-inquiries');
+            const btnInventory = document.getElementById('admin-tab-btn-inventory');
+
+            if (tabName === 'inquiries') {
+                tabInquiries.classList.remove('hidden');
+                tabInventory.classList.add('hidden');
+                btnInquiries.className = 'py-3 font-extrabold text-sm text-pink-600 border-b-2 border-pink-600 flex items-center gap-2';
+                btnInventory.className = 'py-3 font-extrabold text-sm text-slate-500 hover:text-slate-900 flex items-center gap-2';
+                renderAdminInquiries();
+            } else {
+                tabInventory.classList.remove('hidden');
+                tabInquiries.classList.add('hidden');
+                btnInventory.className = 'py-3 font-extrabold text-sm text-pink-600 border-b-2 border-pink-600 flex items-center gap-2';
+                btnInquiries.className = 'py-3 font-extrabold text-sm text-slate-500 hover:text-slate-900 flex items-center gap-2';
+                renderAdminInventory();
+            }
+        }
+
+        function renderAdminDashboard() {
+            renderAdminInquiries();
+            renderAdminInventory();
+            document.getElementById('admin-inquiries-badge').innerText = state.inquiries.length;
+            document.getElementById('admin-inventory-badge').innerText = state.products.length;
+        }
+
+        function renderAdminInquiries() {
+            const container = document.getElementById('admin-inquiries-list');
+            if (!container) return;
+
+            if (state.inquiries.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 text-center">
+                        <p class="text-xs text-slate-500">No customer order inquiries received yet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = state.inquiries.map(inq => `
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-3 border-b border-slate-100">
+                        <div>
+                            <span class="bg-amber-100 text-slate-900 font-black text-xs px-2.5 py-1 rounded-lg">${inq.id}</span>
+                            <span class="text-xs text-slate-500 ml-2">${new Date(inq.createdAt).toLocaleString()}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="bg-pink-100 text-pink-700 text-xs font-extrabold px-2.5 py-1 rounded-lg">${inq.status}</span>
+                            <a href="tel:${inq.customerPhone}" class="bg-slate-900 text-amber-400 font-bold px-3 py-1 rounded-lg text-xs flex items-center gap-1">
+                                <i class="fa-solid fa-phone"></i> Call Customer
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-xs space-y-1">
+                        <p><strong class="text-slate-900">Customer:</strong> ${inq.customerName} (${inq.customerPhone})</p>
+                        <p><strong class="text-slate-900">Total Value:</strong> ₹${inq.totalAmount}</p>
+                    </div>
+                    <div class="bg-slate-50 p-3 rounded-xl space-y-2">
+                        <p class="text-[10px] font-bold uppercase text-slate-500">Inquired Items:</p>
+                        ${inq.items.map(item => `
+                            <div class="flex justify-between items-center text-xs">
+                                <span>${item.name} (x${item.qty})</span>
+                                <span class="font-bold text-slate-900">₹${item.price * item.qty}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAdminInventory() {
+            const tbody = document.getElementById('admin-inventory-tbody');
+            if (!tbody) return;
+
+            tbody.innerHTML = state.products.map(p => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 flex items-center gap-3">
+                        <img src="${p.image}" alt="" class="w-10 h-10 object-cover rounded-lg bg-slate-100" onerror="this.src='https://placehold.co/100x100/f8fafc/111827?text=LF'">
+                        <div>
+                            <p class="font-extrabold text-slate-900">${p.name}</p>
+                            <p class="text-[10px] text-slate-400">ID: ${p.id}</p>
+                        </div>
+                    </td>
+                    <td class="p-4 font-semibold text-slate-700">${p.category}</td>
+                    <td class="p-4 font-black text-pink-600">₹${p.price}</td>
+                    <td class="p-4 font-semibold text-slate-600">${p.stock}</td>
+                    <td class="p-4 text-right space-x-2">
+                        <button onclick="openEditProductModal('${p.id}')" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteProduct('${p.id}')" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold px-2.5 py-1 rounded-lg">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openAddProductModal() {
+            document.getElementById('product-form-title').innerText = 'Add New Inventory Item';
+            document.getElementById('prod-form-id').value = '';
+            document.getElementById('prod-form-name').value = '';
+            document.getElementById('prod-form-category').value = 'Men';
+            document.getElementById('prod-form-stock').value = 'In Stock';
+            document.getElementById('prod-form-price').value = '';
+            document.getElementById('prod-form-orig-price').value = '';
+            document.getElementById('prod-form-image').value = '';
+            document.getElementById('prod-form-sizes').value = 'S, M, L, XL';
+            document.getElementById('prod-form-desc').value = '';
+            document.getElementById('add-product-modal').classList.remove('hidden');
+        }
+
+        function openEditProductModal(productId) {
+            const p = state.products.find(item => item.id === productId);
+            if (!p) return;
+            document.getElementById('product-form-title').innerText = 'Edit Inventory Item';
+            document.getElementById('prod-form-id').value = p.id;
+            document.getElementById('prod-form-name').value = p.name;
+            document.getElementById('prod-form-category').value = p.category;
+            document.getElementById('prod-form-stock').value = p.stock;
+            document.getElementById('prod-form-price').value = p.price;
+            document.getElementById('prod-form-orig-price').value = p.origPrice || '';
+            document.getElementById('prod-form-image').value = p.image;
+            document.getElementById('prod-form-sizes').value = p.sizes ? p.sizes.join(', ') : '';
+            document.getElementById('prod-form-desc').value = p.desc || '';
+            document.getElementById('add-product-modal').classList.remove('hidden');
+        }
+
+        function closeAddProductModal() {
+            document.getElementById('add-product-modal').classList.add('hidden');
+        }
+
+        function handleSaveProduct(e) {
+            e.preventDefault();
+            const id = document.getElementById('prod-form-id').value;
+            const name = document.getElementById('prod-form-name').value.trim();
+            const category = document.getElementById('prod-form-category').value;
+            const stock = document.getElementById('prod-form-stock').value;
+            const price = parseFloat(document.getElementById('prod-form-price').value);
+            const origPrice = parseFloat(document.getElementById('prod-form-orig-price').value) || null;
+            const image = document.getElementById('prod-form-image').value.trim();
+            const sizesRaw = document.getElementById('prod-form-sizes').value;
+            const sizes = sizesRaw ? sizesRaw.split(',').map(s => s.trim()).filter(Boolean) : ['S', 'M', 'L', 'XL'];
+            const desc = document.getElementById('prod-form-desc').value.trim();
+
+            if (id) {
+                // Edit existing
+                const p = state.products.find(item => item.id === id);
+                if (p) {
+                    p.name = name;
+                    p.category = category;
+                    p.stock = stock;
+                    p.price = price;
+                    p.origPrice = origPrice;
+                    p.image = image;
+                    p.sizes = sizes;
+                    p.desc = desc;
+                    showToast('Product updated successfully!', 'success');
+                }
+            } else {
+                // Add new
+                const newProd = {
+                    id: 'prod-' + Date.now(),
+                    name,
+                    category,
+                    stock,
+                    price,
+                    origPrice,
+                    image,
+                    sizes,
+                    desc,
+                    createdAt: Date.now()
+                };
+                state.products.unshift(newProd);
+                showToast('New product added to catalog!', 'success');
+            }
+
+            saveState();
+            closeAddProductModal();
+            renderAdminDashboard();
+            renderProducts();
+        }
+
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this item from inventory?')) {
+                state.products = state.products.filter(p => p.id !== productId);
+                saveState();
+                showToast('Product removed.', 'success');
+                renderAdminDashboard();
+                renderProducts();
+            }
+        }
+
+        function updateBadges() {
+            const cartBadge = document.getElementById('cart-badge');
+            const wishlistBadge = document.getElementById('wishlist-badge');
+            
+            const totalCartQty = state.cart.reduce((sum, item) => sum + item.qty, 0);
+            if (totalCartQty > 0) {
+                cartBadge.innerText = totalCartQty;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
+            if (state.wishlist.length > 0) {
+                wishlistBadge.innerText = state.wishlist.length;
+                wishlistBadge.classList.remove('hidden');
+            } else {
+                wishlistBadge.classList.add('hidden');
+            }
+        }
+
+        // Initialize on window load
+        window.onload = function() {
+            initApp();
+        };
+    </script>
+</body>
+</html>
